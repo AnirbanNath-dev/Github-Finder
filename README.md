@@ -19,15 +19,15 @@ git clone https://github.com/AnirbanNath-dev/Github-Finder.git
 cd GitHub-Finder
 ```
 
-3. Install the dependencies
+3. **Install the dependencies**
 ```bash
 npm install
 ```
 
-4. Generate the output.css file
+4. **Generate the output.css file**
 
 ```bash
 npx tailwindcss -i ./styles/input.css -o ./styles/output.css
 ```
 
-5. Run the html file 
+5. **Run the html file** 
