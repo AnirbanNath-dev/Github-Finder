@@ -11,13 +11,12 @@ async function userFetcher(url, options) {
     return data;
 }
 function showCard(user) {
-    const { avatar_url, login, url, location } = user;
-    container.insertAdjacentHTML('beforeend', (`<div class='card'>
-        <img src= "${avatar_url}" alt="${login}"/>
-        <hr/>
+    const { avatar_url, login, html_url, followers, following } = user;
+    container.insertAdjacentHTML('beforeend', (`<div class='card cursor-pointer hover:-translate-y-4 transition-all duration-500 hover:scale-105'>
+        <img class="h-36 rounded-lg" src= "${avatar_url}" alt="${login}"/>
         <div class="card-footer">
             
-            <a href="${url}"> Github </a>
+            <a href="${html_url}" target="_blank" class="text-white"> ${login} </a>
         </div>
         </div>
         `));
@@ -40,12 +39,19 @@ formSubmit.addEventListener('submit', async (e) => {
             const url = `https://api.github.com/users/${search}`;
             await userFetcher(url, {})
                 .then(user => {
-                showCard(user);
+                container.insertAdjacentHTML("beforeend", (`<div class='card cursor-pointer flex'>
+                    <img class="h-36 rounded-lg" src= "${user.avatar_url}" alt="${user.login}"/>
+                    <div class="card-footer">
+                        <div class="flex flex-col gap-4">
+                        <a href="${user.html_url}" target="_blank" class="text-white"> Username : ${user.login} </a>
+                        <span>Followers : ${user.followers}</span>
+                        </div>
+                    </div>
+                    </div>
+                    `));
             });
         }
         catch (error) {
         }
-    }
-    else {
     }
 });
