@@ -27,6 +27,20 @@ async function userFetcher<T>(url :string , options? : RequestInit) : Promise<T>
 
 function showCard(user : UserData):void{
 
+    const {avatar_url , login , url , location } = user
+
+    container.insertAdjacentHTML('beforeend', (
+        `<div class='card'>
+        <img src= "${avatar_url}" alt="${login}"/>
+        <hr/>
+        <div class="card-footer">
+            
+            <a href="${url}"> Github </a>
+        </div>
+        </div>
+        `
+        
+    ))
 }
 
 
@@ -40,3 +54,33 @@ function getUserData(url : string ){
 }
 
 getUserData('https://api.github.com/users')
+
+
+formSubmit.addEventListener('submit' , async (e)=>{
+    e.preventDefault()
+    const search = getUsername.value
+    container.innerText = ""
+
+    if(search.trim().length !=0){
+        try {
+            
+            const url = `https://api.github.com/users/${search}`
+            
+            
+            await userFetcher<UserData>(url , {})
+            .then(user =>{
+                showCard(user)
+            })
+            
+        
+        } catch (error) {
+            
+        }
+    }else{
+
+
+
+    }
+    
+    
+})
